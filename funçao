@@ -1,0 +1,60 @@
+Em Rust, uma **função** é um bloco de código reutilizável que realiza uma tarefa específica. Elas são definidas com a palavra-chave `fn`, seguida pelo nome da função, parâmetros de entrada e um bloco de código que define o comportamento da função. O Rust é uma linguagem de tipagem estática, então as funções geralmente precisam especificar o tipo dos parâmetros e o tipo do valor de retorno, embora o compilador possa inferir alguns tipos automaticamente.
+
+Aqui está um exemplo básico de uma função em Rust:
+
+### Exemplo 1: Função simples
+```rust
+fn saudacao(nome: &str) -> String {
+    format!("Olá, {}!", nome)
+}
+
+fn main() {
+    let mensagem = saudacao("João");
+    println!("{}", mensagem); // Imprime: Olá, João!
+}
+```
+
+### Explicação:
+1. `fn`: Palavras-chave usada para declarar uma função.
+2. `saudacao`: Nome da função.
+3. `nome: &str`: Parâmetro de entrada, onde `&str` é um tipo de string imutável em Rust.
+4. `-> String`: O tipo de retorno da função, que neste caso é `String`.
+5. `format!`: Macro para criar uma string formatada.
+
+### Exemplos com diferentes tipos de funções:
+- **Função sem retorno:**
+    ```rust
+    fn imprimir_mensagem() {
+        println!("Esta é uma mensagem.");
+    }
+    ```
+
+- **Função com múltiplos parâmetros:**
+    ```rust
+    fn soma(a: i32, b: i32) -> i32 {
+        a + b
+    }
+    ```
+
+- **Funções que retornam tuplas:**
+    ```rust
+    fn calcular_area_e_perimetro(lado: f64) -> (f64, f64) {
+        let area = lado * lado;
+        let perimetro = 4.0 * lado;
+        (area, perimetro)
+    }
+    ```
+
+### Funções em Rust podem ser:
+- **Funções normais** como as mostradas nos exemplos.
+- **Funções anônimas** ou **closures**, que podem ser atribuídas a variáveis.
+  
+Por exemplo:
+```rust
+let quadrado = |x: i32| x * x;
+println!("{}", quadrado(4)); // Imprime: 16
+```
+
+Além disso, Rust tem o conceito de **funções recursivas** (funções que se chamam), o que é útil para certos algoritmos, como calcular o fatorial de um número.
+
+Se quiser mais detalhes ou exemplos mais avançados, posso explicar melhor!
