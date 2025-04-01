@@ -1,0 +1,91 @@
+Em Rust, o conceito de **ownership** (propriedade) é uma das bases fundamentais do sistema de gerenciamento de memória da linguagem. Ele ajuda a garantir segurança de memória sem a necessidade de um coletor de lixo (garbage collector), o que contribui para a eficiência do código. O sistema de ownership é responsável por garantir que a memória seja gerenciada de forma segura e eficiente, evitando problemas como *dangling pointers* (ponteiros inválidos) e *data races* (condições de corrida).
+
+Aqui estão os três princípios principais do ownership:
+
+### 1. **Propriedade (Ownership)**
+
+Em Rust, cada valor tem um **dono** (owner). O dono é a variável que "possui" o valor na memória. Quando o dono sai de escopo (é destruído), o valor é automaticamente limpo (deallocado), o que evita vazamentos de memória.
+
+### 2. **Empréstimo (Borrowing)**
+
+Rust permite que outras variáveis "emprestem" a propriedade de um valor sem transferir a posse. Existem dois tipos principais de empréstimos:
+
+- **Empréstimo Imutável** (`&T`): Várias variáveis podem emprestar o valor imutavelmente, ou seja, elas podem ler o valor, mas não podem modificá-lo.
+- **Empréstimo Mutável** (`&mut T`): Somente uma variável pode emprestar o valor de forma mutável, permitindo modificar o valor. Não é permitido ter empréstimos mutáveis e imutáveis ao mesmo tempo.
+
+O sistema de empréstimo garante que o acesso à memória seja seguro, evitando condições de corrida.
+
+### 3. **Transferência de Propriedade (Move)**
+
+Quando um valor é transferido de uma variável para outra (isto é, quando ocorre um *move*), a primeira variável perde a posse do valor. Isso significa que a variável original não pode mais acessar ou modificar o valor. Após o *move*, a variável original se torna "inválida".
+
+Por exemplo, considere o seguinte código:
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+    let s2 = s1; // move s1 para s2
+
+    // println!("{}", s1); // Isso causaria um erro de compilação, pois s1 foi movida
+    println!("{}", s2); // Isso funciona
+}
+```
+
+Neste exemplo, `s1` transfere a posse de `String` para `s2`, e após isso, `s1` não pode mais ser usada.
+
+### Como isso ajuda a evitar erros?
+
+- **Segurança de memória**: O Rust garante que, ao final da execução de um programa, toda a memória será limpa sem que o programador precise se preocupar com *malloc* ou *free*. O sistema de ownership permite o gerenciamento automático de memória.
+- **Sem condições de corrida**: O Rust impede o acesso simultâneo à memória de forma insegura, garantindo que não haja *data races*, ou seja, duas threads acessando a mesma memória de forma simultânea sem sincronização.
+
+### Exemplos de Ownership em Rust
+
+1. **Ownership simples**:
+
+```rust
+fn main() {
+    let x = 5;
+    let y = x; // x é movido para y, mas como é um tipo primitivo (cópia), isso não causa problemas
+    println!("{}", y);
+}
+```
+
+2. **Empréstimo Imutável**:
+
+```rust
+fn main() {
+    let s = String::from("hello");
+    let s_ref = &s; // Empréstimo imutável
+    println!("{}", s_ref);
+}
+```
+
+3. **Empréstimo Mutável**:
+
+```rust
+fn main() {
+    let mut s = String::from("hello");
+    let s_ref = &mut s; // Empréstimo mutável
+    s_ref.push_str(", world");
+    println!("{}", s_ref);
+}
+```
+
+4. **Transferência de Propriedade**:
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+    let s2 = s1; // move ownership de s1 para s2
+    // println!("{}", s1); // Erro: s1 não é mais válido
+    println!("{}", s2); // Ok: s2 possui o valor
+}
+```
+
+### Em resumo
+
+- **Ownership** é o conceito de que cada valor tem um dono, e a memória associada a esse valor é liberada quando o dono sai de escopo.
+- **Borrowing** permite que valores sejam emprestados de forma imutável ou mutável, sem transferir a posse.
+- **Move semantics** significa que, quando um valor é movido de uma variável para outra, a primeira variável não pode mais acessar o valor.
+
+Esses conceitos tornam o Rust uma linguagem com forte segurança de memória e evitam muitos tipos comuns de erros que outras linguagens com gerenciamento manual de memória podem encontrar.
