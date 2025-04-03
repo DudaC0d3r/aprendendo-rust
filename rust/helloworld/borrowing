@@ -1,0 +1,48 @@
+Em Rust, **borrowing** (ou "empréstimo", em português) é um conceito central relacionado ao controle de acesso à memória e à propriedade de dados, sem a necessidade de copiar os dados. O **borrowing** permite que você empreste uma referência a uma variável, ao invés de transferir sua posse (ownership), com algumas restrições que garantem segurança e desempenho eficientes.
+
+Existem dois tipos de borrowing:
+
+### 1. **Borrowing Imutável (Immutably Borrow)**
+Quando você empresta uma referência imutável a um valor, o valor original não pode ser modificado enquanto a referência estiver ativa.
+
+Exemplo:
+```rust
+fn main() {
+    let s = String::from("Olá, Rust!");
+    let r1 = &s; // Empréstimo imutável
+    let r2 = &s; // Outro empréstimo imutável
+
+    println!("{}", r1);
+    println!("{}", r2);
+}
+```
+
+- Neste caso, `r1` e `r2` são referências imutáveis à variável `s`. Isso significa que o valor de `s` não pode ser alterado enquanto estas referências estão em uso.
+
+### 2. **Borrowing Mutável (Mutably Borrow)**
+Quando você empresta uma referência mutável, a variável original pode ser modificada através da referência, mas **somente uma referência mutável** pode existir ao mesmo tempo. Isso garante que não haja condições de corrida, ou seja, você não pode ter várias referências ao mesmo tempo, algumas mutáveis e outras imutáveis.
+
+Exemplo:
+```rust
+fn main() {
+    let mut s = String::from("Olá");
+
+    let r1 = &mut s; // Empréstimo mutável
+    r1.push_str(", Rust!"); // Modificando o valor através da referência mutável
+
+    println!("{}", r1);
+}
+```
+
+- Aqui, `r1` é uma referência mutável à variável `s`, e a string pode ser modificada através dela.
+
+### Regras do Borrowing:
+- **Uma referência mutável por vez:** Não pode haver mais de uma referência mutável à mesma variável ao mesmo tempo.
+- **Referências imutáveis podem coexistir, mas não com mutáveis:** Você pode ter várias referências imutáveis ao mesmo tempo, mas não pode ter referências imutáveis e mutáveis ao mesmo tempo.
+- **O dono da variável controla o fim do empréstimo:** A referência (imutável ou mutável) não pode existir após o dono original da variável ser destruído ou sair de escopo.
+
+### Benefícios:
+- **Segurança sem custos de tempo de execução:** O sistema de borrow checker do Rust garante que o acesso à memória seja seguro, evitando erros comuns como acessos concorrentes ou vazamentos de memória.
+- **Eficiência:** Como o borrowing não envolve cópias de dados, o desempenho é otimizado.
+
+Essas regras são fundamentais para o sistema de memória do Rust, que visa fornecer controle de baixa sobre o gerenciamento de memória sem precisar de um coletor de lixo.
