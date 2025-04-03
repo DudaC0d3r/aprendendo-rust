@@ -1,0 +1,126 @@
+Em Rust, o conceito de **mutabilidade** está intimamente ligado ao gerenciamento de memória e à segurança em tempo de compilação. A mutabilidade de variáveis em Rust refere-se à capacidade de alterar o valor armazenado em uma variável após sua inicialização. Vamos ver mais detalhes sobre isso.
+
+### 1. **Variáveis Imutáveis**
+Por padrão, todas as variáveis em Rust são **imutáveis**, ou seja, uma vez que você atribui um valor a uma variável, você **não pode modificar** esse valor. Isso ajuda a evitar erros acidentais, como a alteração inesperada de dados.
+
+Exemplo de uma variável imutável:
+
+```rust
+fn main() {
+    let x = 5;  // A variável `x` é imutável
+    // x = 10; // Erro: Não podemos reatribuir um valor a uma variável imutável
+    println!("Valor de x: {}", x);
+}
+```
+
+Se você tentar modificar uma variável imutável, o compilador irá gerar um erro, porque Rust garante que valores imutáveis não podem ser alterados após a atribuição.
+
+### 2. **Variáveis Mutáveis**
+Para permitir que o valor de uma variável seja alterado, você precisa declarar a variável como **mutável**, utilizando a palavra-chave `mut`.
+
+Exemplo de uma variável mutável:
+
+```rust
+fn main() {
+    let mut x = 5;  // A variável `x` agora é mutável
+    x = 10;  // Agora podemos alterar o valor de `x`
+    println!("Valor de x após alteração: {}", x);
+}
+```
+
+No exemplo acima, a variável `x` é mutável, o que significa que podemos modificar seu valor depois de sua inicialização.
+
+### 3. **Mutabilidade e Tipos Compositos**
+A mutabilidade se aplica à variável e não ao valor que ela armazena. Por exemplo, se você tem uma variável que armazena um tipo composto (como uma **tupla** ou **vetor**), você pode ter mutabilidade tanto para a variável quanto para os elementos dentro dela, dependendo da situação.
+
+#### Exemplo com vetor mutável:
+
+```rust
+fn main() {
+    let mut v = vec![1, 2, 3];
+    v.push(4);  // Podemos modificar o vetor, porque `v` é mutável
+    println!("Vetor após modificação: {:?}", v);  // [1, 2, 3, 4]
+}
+```
+
+Neste caso, o vetor `v` é mutável, o que significa que podemos adicionar novos elementos a ele. A mutabilidade de `v` permite a alteração do vetor, mesmo que o tipo subjacente (o vetor em si) não seja declarado como mutável.
+
+### 4. **Referências Mutáveis**
+Em Rust, você também pode **passar referências** mutáveis para funções, permitindo que elas modifiquem o valor original. Para fazer isso, você usa o **operador de referência mutável** (`&mut`).
+
+Exemplo de referência mutável:
+
+```rust
+fn main() {
+    let mut x = 5;
+    altera_valor(&mut x);  // Passando uma referência mutável para a função
+    println!("Valor de x após alteração: {}", x);  // 10
+}
+
+fn altera_valor(valor: &mut i32) {
+    *valor = 10;  // Modificando o valor através da referência mutável
+}
+```
+
+Aqui, passamos uma **referência mutável** de `x` para a função `altera_valor`. Dentro da função, usamos a desreferenciação (`*valor`) para modificar o valor original de `x`.
+
+### 5. **Referências Imutáveis vs Mutáveis**
+Rust tem uma regra de segurança muito importante: **não é possível ter uma referência mutável e uma referência imutável para o mesmo valor ao mesmo tempo**. Isso garante que não haja mudanças de estado inesperadas enquanto o valor está sendo acessado de maneira imutável.
+
+#### Exemplo que gera erro:
+
+```rust
+fn main() {
+    let mut x = 5;
+    let y = &x;  // Referência imutável
+    let z = &mut x;  // Erro: Não podemos ter uma referência mutável enquanto houver referências imutáveis
+    println!("y: {}, z: {}", y, z);
+}
+```
+
+Este código geraria um erro de compilação porque `y` é uma referência imutável e `z` é uma referência mutável à mesma variável `x`. O Rust impede essa situação para evitar problemas de concorrência e garantir a segurança de memória.
+
+### 6. **Mutabilidade de Tuplas e Estruturas**
+A mutabilidade também se aplica a **tipos compostos**, como tuplas e estruturas (structs). Se você tem uma variável mutável que armazena uma tupla ou estrutura, os campos dentro dessa tupla ou estrutura também podem ser alterados, se a variável for mutável.
+
+#### Exemplo com tupla mutável:
+
+```rust
+fn main() {
+    let mut tuple = (5, 10);  // A tupla é mutável
+    tuple.0 = 20;  // Podemos alterar o primeiro valor da tupla
+    println!("Tupla após modificação: {:?}", tuple);  // (20, 10)
+}
+```
+
+#### Exemplo com estrutura mutável:
+
+```rust
+struct Pessoa {
+    nome: String,
+    idade: u32,
+}
+
+fn main() {
+    let mut pessoa = Pessoa {
+        nome: String::from("João"),
+        idade: 30,
+    };
+
+    pessoa.idade = 31;  // Podemos alterar os campos da estrutura
+    println!("Pessoa após modificação: {} tem {} anos", pessoa.nome, pessoa.idade);
+}
+```
+
+Neste exemplo, modificamos a idade da estrutura `Pessoa` porque a variável `pessoa` foi declarada como mutável.
+
+### 7. **Conclusão**
+
+- **Imutabilidade padrão**: As variáveis em Rust são **imutáveis** por padrão. Isso ajuda a evitar erros de lógica e torna o código mais previsível.
+- **Mutabilidade com `mut`**: Para alterar o valor de uma variável depois de sua inicialização, é necessário usar a palavra-chave `mut`.
+- **Referências**: Ao trabalhar com referências mutáveis, o Rust impede que você tenha referências imutáveis e mutáveis ao mesmo tempo para a mesma variável, garantindo segurança.
+- **Mutabilidade em tipos compostos**: A mutabilidade se aplica à variável, permitindo que você modifique os elementos de tipos compostos como tuplas e estruturas se a variável for mutável.
+
+A mutabilidade em Rust permite controle explícito sobre onde e quando os dados podem ser alterados, o que ajuda a garantir **segurança de memória** e **concorrência segura** sem precisar de um coletor de lixo.
+
+Se você precisar de mais detalhes ou exemplos, fique à vontade para perguntar!
