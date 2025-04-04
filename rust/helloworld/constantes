@@ -1,0 +1,35 @@
+Em Rust, **constantes** são valores fixos que são conhecidos no momento da **compilação** e que não podem ser alterados durante a execução do programa. Elas são declaradas usando a palavra-chave `const` e, ao contrário de variáveis, não podem ser mutáveis.
+
+### Características das constantes em Rust:
+- **Valor fixo**: O valor é determinado em tempo de compilação e não pode ser alterado durante a execução.
+- **Tipo explícito**: Você deve especificar o tipo da constante.
+- **Acessível globalmente**: As constantes podem ser acessadas em qualquer parte do código, desde que estejam no escopo.
+- **Não ocupam memória dinâmica**: Elas são armazenadas de forma estática e não alocam memória dinâmica, o que as torna mais eficientes em certos contextos.
+
+### Sintaxe
+
+```rust
+const NOME_DA_CONSTANTE: Tipo = valor;
+```
+
+### Exemplo:
+
+```rust
+const PI: f64 = 3.141592653589793;
+const MAX_IDADE: u32 = 120;
+
+fn main() {
+    println!("O valor de PI é: {}", PI);
+    println!("A idade máxima é: {}", MAX_IDADE);
+}
+```
+
+### Diferença entre `const` e `let`:
+- **`const`**: Valores imutáveis que são conhecidos em tempo de compilação e são globais (ou dentro de um módulo).
+- **`let`**: Usado para declarar variáveis, que podem ser mutáveis ou imutáveis, e seu valor pode ser determinado em tempo de execução.
+
+### Quando usar constantes:
+- Para valores que são usados em várias partes do código e não devem mudar (como valores matemáticos constantes, limites ou configurações fixas).
+- Para garantir que o valor seja conhecido e validado pela compilação.
+
+Se precisar de mais exemplos ou detalhes sobre constantes em Rust, fique à vontade para perguntar!
