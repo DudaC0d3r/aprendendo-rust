@@ -1,0 +1,44 @@
+Em Rust, **shadowing** (ou **sombreamento**) é o conceito de criar uma nova variável com o mesmo nome de uma variável anterior, "escondendo" a variável anterior dentro de um escopo. Diferente de outras linguagens, onde isso pode causar problemas, o Rust permite o shadowing de maneira segura e controlada.
+
+Quando você faz o shadowing, a variável original é "substituída" pela nova variável dentro de um escopo específico, mas o valor da variável original ainda pode ser acessado em outros escopos, caso necessário.
+
+### Exemplo de Shadowing:
+
+```rust
+fn main() {
+    let x = 5;
+    println!("Valor de x: {}", x); // Imprime 5
+
+    let x = x + 1; // A variável x é "sombria" (shadowed) e recebe um novo valor
+    println!("Valor de x: {}", x); // Imprime 6
+
+    {
+        let x = x * 2; // Outro shadowing no escopo interno
+        println!("Valor de x dentro do escopo interno: {}", x); // Imprime 12
+    }
+
+    println!("Valor de x fora do escopo interno: {}", x); // Imprime 6
+}
+```
+
+### Explicação:
+
+1. **Primeiro `let x = 5;`**: Aqui, estamos criando uma variável `x` e atribuindo a ela o valor `5`.
+2. **`let x = x + 1;`**: No segundo uso de `let`, estamos criando uma nova variável chamada `x`, que recebe o valor de `x` + 1. A variável original `x` ainda existe, mas a nova `x` "substitui" a antiga dentro do novo escopo.
+3. **Escopo Interno**: Dentro do bloco `{}`, o `x` é novamente "sombrado" por uma nova variável, que recebe `x * 2`. Esse `x` só existe dentro desse bloco.
+
+O shadowing é útil quando você deseja mudar o valor de uma variável sem precisar de um novo nome e sem usar mutabilidade. Além disso, o tipo de dado também pode ser alterado durante o shadowing.
+
+### Exemplo de alteração de tipo:
+
+```rust
+fn main() {
+    let x = 5; // x é um inteiro
+    let x = "Agora sou uma string"; // x agora é uma string
+    
+    println!("x como inteiro: {}", 5);
+    println!("x como string: {}", x); // Imprime "Agora sou uma string"
+}
+```
+
+Neste exemplo, a variável `x` começa como um inteiro e depois se torna uma string. O tipo da variável pode ser alterado dentro do shadowing, o que é útil para alguns cenários.
