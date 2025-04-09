@@ -1,0 +1,64 @@
+Em **Rust**, **comentários** são usados para adicionar anotações ao código, explicando o que ele faz, ou para desativar temporariamente partes do código durante o desenvolvimento. Comentários não afetam a execução do programa, ou seja, são ignorados pelo compilador.
+
+Rust suporta dois tipos principais de comentários:
+
+### 1. Comentários de linha única (`//`)
+Os comentários de linha única são iniciados com `//`. Eles comentam todo o texto após esse símbolo até o final da linha.
+
+#### Exemplo:
+```rust
+fn main() {
+    let x = 5; // Este é um comentário de linha única
+    println!("O valor de x é: {}", x);
+}
+```
+
+### 2. Comentários de múltiplas linhas (`/* */`)
+Os comentários de múltiplas linhas podem abranger várias linhas de código e começam com `/*` e terminam com `*/`.
+
+#### Exemplo:
+```rust
+fn main() {
+    let x = 5;
+    let y = 10;
+    /* Este é um comentário
+       que se estende por várias linhas */
+    println!("x + y = {}", x + y);
+}
+```
+
+### 3. Comentários de documentação (`///` e `//!`)
+
+Rust também possui uma forma especial de comentário que serve para **documentação**. Esses comentários são usados para gerar documentação do código automaticamente. Existem duas variações principais:
+
+- **`///`**: Comentário de documentação para um item específico (como funções, structs, enums, etc).
+- **`//!`**: Comentário de documentação para o módulo ou crate (geralmente no início de arquivos).
+
+#### Exemplo de `///`:
+```rust
+/// Esta função soma dois números.
+/// 
+/// # Exemplos
+/// ```rust
+/// let resultado = soma(2, 3);
+/// assert_eq!(resultado, 5);
+/// ```
+fn soma(a: i32, b: i32) -> i32 {
+    a + b
+}
+```
+O comentário `///` gera documentação que pode ser acessada com ferramentas como `rustdoc`.
+
+#### Exemplo de `//!`:
+```rust
+//! Este módulo contém funções para operações matemáticas básicas.
+```
+Comentários com `//!` são geralmente usados para documentar módulos inteiros ou crates.
+
+### Resumo:
+- **`//`**: Comentário de linha única.
+- **`/* */`**: Comentário de múltiplas linhas.
+- **`///`**: Comentário de documentação (para funções, structs, etc).
+- **`//!`**: Comentário de documentação para o módulo ou crate.
+
+Comentários são uma boa prática para melhorar a legibilidade e manutenção do código, especialmente ao trabalhar em equipes ou quando você precisa retornar a um código depois de um tempo.
