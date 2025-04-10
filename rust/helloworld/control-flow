@@ -1,0 +1,36 @@
+"Control flow" (ou "fluxo de controle", em português) é um conceito fundamental em programação que define a **ordem em que as instruções de um programa são executadas**.
+
+Imagina que um programa é como uma receita de bolo. O control flow diz se você vai seguir os passos um por um, se vai repetir algum passo várias vezes, ou se vai pular algum dependendo de uma condição (tipo "se a massa estiver muito líquida, adicione mais farinha").
+
+### Os principais tipos de control flow são:
+
+1. **Sequência**  
+   As instruções são executadas uma após a outra, na ordem em que aparecem no código.
+
+2. **Decisão (condicional)**  
+   Executa diferentes blocos de código dependendo de uma condição.  
+   Ex: `if`, `else`, `switch`
+
+   ```python
+   if idade >= 18:
+       print("Pode entrar")
+   else:
+       print("Acesso negado")
+   ```
+
+3. **Repetição (loops)**  
+   Repete blocos de código enquanto uma condição for verdadeira.  
+   Ex: `for`, `while`
+
+   ```python
+   for i in range(5):
+       print(i)
+   ```
+
+4. **Desvios (jump)**  
+   Muda o fluxo para outro ponto do código, às vezes pulando trechos.  
+   Ex: `break`, `continue`, `return`
+
+---
+
+Se você quiser, posso te mostrar um exemplo prático ou como isso funciona em alguma linguagem específica! Tá aprendendo a programar agora?
