@@ -1,0 +1,49 @@
+Em Rust, **estruturas** (ou *structs*) são uma maneira de criar **tipos compostos** que agrupam diferentes valores (chamados de **campos**) sob um mesmo nome. É parecido com "objetos" em outras linguagens, só que sem métodos embutidos por padrão (mas você pode adicioná-los).
+
+### Sintaxe básica de uma `struct`:
+
+```rust
+struct Pessoa {
+    nome: String,
+    idade: u32,
+}
+```
+
+Isso cria um novo tipo chamado `Pessoa`, que tem dois campos: `nome` e `idade`.
+
+### Criando uma instância da struct:
+
+```rust
+fn main() {
+    let pessoa1 = Pessoa {
+        nome: String::from("João"),
+        idade: 30,
+    };
+
+    println!("{} tem {} anos", pessoa1.nome, pessoa1.idade);
+}
+```
+
+### Struct com implementação de métodos:
+
+```rust
+impl Pessoa {
+    fn aniversario(&mut self) {
+        self.idade += 1;
+    }
+
+    fn saudacao(&self) {
+        println!("Olá, meu nome é {}!", self.nome);
+    }
+}
+```
+
+### Tipos comuns de structs em Rust:
+- **Struct tradicional** (com campos nomeados) — como vimos acima.
+- **Tuple struct** — parecida com uma tupla, mas com um nome:
+  ```rust
+  struct Ponto(i32, i32);
+  ```
+- **Unit struct** — não tem campos, usada para tipos sem dados (como `struct Marcador;`).
+
+Se quiser, posso te mostrar exemplos práticos com structs mais complexas ou como usá-las com enum, traits, etc. Tá aprendendo Rust agora?
