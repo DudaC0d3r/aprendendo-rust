@@ -1,0 +1,55 @@
+Em Rust, `enum` (abreviação de *enumeration*, ou enumeração) é um tipo de dado que permite definir um valor que pode ser um de vários *tipos nomeados*. Ele é muito poderoso e vai além do que outras linguagens como C ou Java geralmente oferecem — porque cada variante de um `enum` em Rust pode ter dados associados a ela.
+
+### Sintaxe básica:
+
+```rust
+enum Direcao {
+    Norte,
+    Sul,
+    Leste,
+    Oeste,
+}
+```
+
+Aqui, `Direcao` é um tipo que pode ser **Norte**, **Sul**, **Leste** ou **Oeste**. Você usaria assim:
+
+```rust
+fn mover(d: Direcao) {
+    match d {
+        Direcao::Norte => println!("Indo para o norte!"),
+        Direcao::Sul => println!("Indo para o sul!"),
+        Direcao::Leste => println!("Indo para o leste!"),
+        Direcao::Oeste => println!("Indo para o oeste!"),
+    }
+}
+```
+
+### Enums com dados associados:
+
+Rust permite que cada variante tenha dados diferentes associados a ela:
+
+```rust
+enum Mensagem {
+    Sair,
+    MoverPara { x: i32, y: i32 },
+    Escrever(String),
+    TrocarCor(u8, u8, u8),
+}
+```
+
+Cada variante de `Mensagem` pode conter diferentes tipos e quantidades de dados. Isso permite criar estruturas muito flexíveis, quase como "tipos somatórios" (do mundo da teoria dos tipos).
+
+### Usando:
+
+```rust
+let m = Mensagem::MoverPara { x: 10, y: 20 };
+
+match m {
+    Mensagem::Sair => println!("Saindo..."),
+    Mensagem::MoverPara { x, y } => println!("Movendo para ({}, {})", x, y),
+    Mensagem::Escrever(texto) => println!("Escrevendo: {}", texto),
+    Mensagem::TrocarCor(r, g, b) => println!("Nova cor: RGB({}, {}, {})", r, g, b),
+}
+```
+
+Se quiser, posso te mostrar como usar `enum` com `Option` ou `Result`, que são dois dos usos mais comuns em Rust. Quer ver exemplos disso?
