@@ -1,0 +1,89 @@
+Em Rust, "collection types" (tipos de coleções) são estruturas fornecidas pela *standard library* que permitem armazenar e manipular múltiplos valores de forma eficiente. Eles são similares a listas, arrays, mapas e conjuntos em outras linguagens.
+
+Aqui vão os principais tipos de coleções em Rust:
+
+---
+
+### 📦 1. **`Vec<T>` – Vetor**
+- Lista dinâmica.
+- Pode crescer e diminuir de tamanho.
+- Acessa elementos por índice.
+- Muito usada!
+
+```rust
+let mut v = Vec::new();
+v.push(1);
+v.push(2);
+println!("{:?}", v); // [1, 2]
+```
+
+---
+
+### 📦 2. **`String`**
+- Uma coleção de caracteres (na verdade, bytes UTF-8).
+- É basicamente um `Vec<u8>` com regras específicas pra texto.
+
+```rust
+let mut s = String::from("Olá");
+s.push_str(" mundo!");
+```
+
+---
+
+### 📦 3. **`HashMap<K, V>`**
+- Mapa (dicionário) que associa chaves a valores.
+- Requer que as chaves implementem `Eq` e `Hash`.
+
+```rust
+use std::collections::HashMap;
+
+let mut map = HashMap::new();
+map.insert("chave", 42);
+println!("{:?}", map.get("chave")); // Some(42)
+```
+
+---
+
+### 📦 4. **`HashSet<T>`**
+- Conjunto: coleção de itens únicos (sem repetição).
+- Baseado em `HashMap`.
+
+```rust
+use std::collections::HashSet;
+
+let mut set = HashSet::new();
+set.insert("item1");
+set.insert("item2");
+```
+
+---
+
+### 📦 5. **`VecDeque<T>`**
+- Fila de duas pontas.
+- Permite inserção/remoção eficiente no começo e no fim.
+
+```rust
+use std::collections::VecDeque;
+
+let mut deque = VecDeque::new();
+deque.push_back(1);
+deque.push_front(2);
+```
+
+---
+
+### 📦 6. **`BTreeMap<K, V>` e `BTreeSet<T>`**
+- Versões ordenadas de `HashMap` e `HashSet`, com base em árvore binária balanceada.
+- Mantêm os elementos ordenados.
+
+---
+
+Essas coleções vivem no módulo:
+
+```rust
+use std::collections;
+```
+
+---
+
+Se quiser, posso te mostrar exemplos práticos de uso ou comparar com alguma linguagem que você já conhece. Quer seguir por aí?
