@@ -1,0 +1,37 @@
+Em Rust, **UTF-8 strings** são cadeias de caracteres codificadas no formato **UTF-8**, que é o formato padrão para strings em Rust. A principal estrutura usada para representar strings em UTF-8 é a **`String`** (string alocada e mutável) ou a **`&str`** (string imutável por referência).
+
+### Conceitos principais:
+
+#### 1. **UTF-8**
+UTF-8 é uma codificação de caracteres que representa texto Unicode usando 1 a 4 bytes por caractere. Ela é eficiente e compatível com ASCII, e é a codificação padrão para strings em Rust.
+
+#### 2. **Tipos de string em Rust**
+- **`String`**: Uma string alocada na heap, de tamanho dinâmico e mutável.
+- **`&str`** (fatia de string): Uma referência imutável a uma sequência de bytes UTF-8.
+
+#### Exemplo:
+```rust
+fn main() {
+    let nome: String = String::from("Olá, mundo!"); // String UTF-8
+    let saudacao: &str = "Olá"; // &str também é UTF-8
+
+    println!("{} {}", saudacao, nome);
+}
+```
+
+Ambas as estruturas armazenam texto em **UTF-8** internamente. Isso significa que você pode usar acentos, emojis e outros caracteres Unicode normalmente.
+
+#### 3. **Verificando bytes UTF-8**
+Você pode acessar os bytes diretamente:
+```rust
+let s = "á"; // UTF-8
+println!("{:?}", s.as_bytes()); // Mostra os bytes: [195, 161]
+```
+
+### Resumo
+Em Rust:
+- Todas as strings (`String` e `&str`) são codificadas em UTF-8 por padrão.
+- Isso garante compatibilidade com Unicode.
+- Manipular strings exige atenção porque nem todos os índices de byte são válidos para caracteres (por exemplo, `á` ocupa 2 bytes, então `s[0]` não é válido diretamente).
+
+Quer um exemplo de como manipular ou validar strings UTF-8 em Rust?
